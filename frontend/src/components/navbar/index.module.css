@@ -1,0 +1,13 @@
+.NavBar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* background-color: red; */
+}
+.NavBar h1 {
+  font-family: Jacques Francois;
+  font-size: 40px;
+  font-style: italic;
+  margin-top: 0.5%;
+  margin-bottom: 1%;
+}
