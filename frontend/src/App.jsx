@@ -1,7 +1,12 @@
+import React from "react";
+import { BrowserRouter } from "react-router-dom";
+import { MainRoutes } from "./routes/index.jsx";
 function App() {
   return (
     <>
-      <h1>Hello World.</h1>
+      <BrowserRouter>
+        <MainRoutes></MainRoutes>
+      </BrowserRouter>
     </>
   );
 }
