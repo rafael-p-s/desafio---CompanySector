@@ -1,0 +1,33 @@
+form {
+  display: block;
+  align-items: center;
+  justify-content: center;
+}
+
+.div_cad_setor,
+.div_buttons,
+.div_tabela_setor {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 10vh;
+  margin-top: 1%;
+  margin-bottom: 1%;
+}
+
+.div_tabela_setor table {
+  width: 30%;
+  border-collapse: collapse;
+}
+
+.div_tabela_setor th,
+td {
+  padding: 8px;
+  text-align: left;
+  border: 1px solid #ddd;
+}
+
+.div_tabela_setor th {
+  background-color: #f0f0f0;
+  text-align: center;
+}
