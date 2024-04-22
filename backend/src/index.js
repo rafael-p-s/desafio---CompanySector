@@ -24,14 +24,7 @@ await createTables();
 // });
 
 //API C
-// server.post("/cadcompany", (req, res) => {
-//   const result = postEmpresa();
-//   res.send(result);
-// });
-// server.post("/cadsector", (req, res) => {
-//   const result = postSetor();
-//   res.send(result);
-// });
+
 server.post("/cadcompany", async (req, res) => {
   try {
     const { razao_social, nome_fantasia, cnpj, setor_id } = req.body;
@@ -58,14 +51,6 @@ server.post("/cadsector", async (req, res) => {
   }
 });
 //API R
-// server.get("/", (req, res) => {
-//   const result = getEmpresa();
-//   res.send(result);
-// });
-// server.get("/", (req, res) => {
-//   const result = getSetor();
-//   res.send(result);
-// });
 server.get("/", async (req, res) => {
   try {
     const empresasComSetores = await getEmpresasComSetores();
@@ -99,28 +84,6 @@ server.put("/cadsector/:id", async (req, res) => {
   }
 });
 //API D
-// server.delete("/:id", (req, res) => {
-//   const id = req.params.id;
-//   deleteEmpresa(id)
-//     .then((result) => {
-//       res.send(result);
-//     })
-//     .catch((error) => {
-//       console.error("Error in delete route: ", error);
-//       res.status(500).send("Internal Server Error");
-//     });
-// });
-// server.delete("/:id", (req, res) => {
-//   const id = req.params.id;
-//   deleteSetor(id)
-//     .then((result) => {
-//       res.send(result);
-//     })
-//     .catch((error) => {
-//       console.error("Error in delete route: ", error);
-//       res.status(500).send("Internal Server Error");
-//     });
-// });
 server.delete("/cadcompany/:id/setor/:setor_id", async (req, res) => {
   try {
     const { id, setor_id } = req.params;
