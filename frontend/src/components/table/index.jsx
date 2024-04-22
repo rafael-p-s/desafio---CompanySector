@@ -14,10 +14,12 @@ export function TableHome() {
             <th>CNPJ</th>
             <th>Setor(es)</th>
             <th>
-              <ButtonBtn>Editar</ButtonBtn>
+              {/* <ButtonBtn>Editar</ButtonBtn> */}
+              Editar
             </th>
             <th>
-              <ButtonBtn>Deletar</ButtonBtn>
+              {/* <ButtonBtn>Deletar</ButtonBtn> */}
+              Deletar
             </th>
           </tr>
         </thead>
