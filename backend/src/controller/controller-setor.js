@@ -1,33 +1,62 @@
 import { connection } from "../config/database-config.js";
 
 //C
-export async function postSetor(dicricao, impresa_id) {
+// export async function postSetor(descricao, impresa_id) {
+//   const client = await connection();
+//   try {
+//     const insertEmpresaQuery = `
+//           INSERT INTO empresa (descricao)
+//           VALUES ($1)
+//           RETURNING id;`;
+
+//     const insertEmpresaValues = [descricao];
+//     const empresaResult = await client.query(
+//       insertEmpresaQuery,
+//       insertEmpresaValues
+//     );
+
+//     const empresa_id = empresaResult.rows[0].id;
+
+//     const insertEmpresaSetorQuery = `
+//           INSERT INTO empresa_setor (id_empresa, id_setor)
+//           VALUES ($1, $2);`;
+
+//     const insertEmpresaSetorValues = [empresa_id, impresa_id];
+//     await client.query(insertEmpresaSetorQuery, insertEmpresaSetorValues);
+
+//     return { success: true, message: "Setor cadastrado com sucesso!" };
+//   } catch (error) {
+//     console.error("Error trying to insert into the 'setor' table: ", error);
+//     // throw error;
+//   } finally {
+//     if (client) {
+//       client.release();
+//     }
+//   }
+// }
+export async function postSetor(descricao, empresa_id) {
   const client = await connection();
   try {
-    const insertEmpresaQuery = `
-          INSERT INTO empresa (dicricao)
-          VALUES ($1)
-          RETURNING id;`;
+    const insertSetorQuery = `
+      INSERT INTO setor (descricao)
+      VALUES ($1)
+      RETURNING id;`;
 
-    const insertEmpresaValues = [dicricao];
-    const empresaResult = await client.query(
-      insertEmpresaQuery,
-      insertEmpresaValues
-    );
+    const insertSetorValues = [descricao];
+    const result = await client.query(insertSetorQuery, insertSetorValues);
 
-    const empresa_id = empresaResult.rows[0].id;
+    const setor_id = result.rows[0].id;
 
     const insertEmpresaSetorQuery = `
-          INSERT INTO empresa_setor (id_empresa, id_setor)
-          VALUES ($1, $2);`;
+      INSERT INTO empresa_setor (id_empresa, id_setor)
+      VALUES ($1, $2);`;
 
-    const insertEmpresaSetorValues = [empresa_id, impresa_id];
+    const insertEmpresaSetorValues = [empresa_id, setor_id];
     await client.query(insertEmpresaSetorQuery, insertEmpresaSetorValues);
 
     return { success: true, message: "Setor cadastrado com sucesso!" };
   } catch (error) {
-    console.error("Error trying to insert into the 'setor' table: ", error);
-    // throw error;
+    console.error("Error in postSetor function: ", error);
   } finally {
     if (client) {
       client.release();
@@ -54,34 +83,55 @@ export async function postSetor(dicricao, impresa_id) {
 //   }
 
 //U
-export async function putSetor(setor_id, descricao, empresa_id) {
+// export async function putSetor(setor_id, descricao, empresa_id) {
+//   const client = await connection();
+//   try {
+//     // Primeiro, atualizamos o setor na tabela 'setor'
+//     const updateSetorQuery = `
+//             UPDATE setor SET descricao = $2
+//             WHERE id = $1`;
+
+//     const updateSetorValues = [setor_id, descricao];
+//     await client.query(updateSetorQuery, updateSetorValues);
+
+//     // Agora, atualizamos o setor na tabela 'empresa_setor' com o novo setor
+//     const updateEmpresaSetorQuery = `
+//             UPDATE empresa_setor
+//             SET id_setor = $2
+//             WHERE id_empresa = $1`;
+
+//     const updateEmpresaSetorValues = [empresa_id, setor_id];
+//     await client.query(updateEmpresaSetorQuery, updateEmpresaSetorValues);
+
+//     // Se tudo correu bem, retornamos uma mensagem de sucesso
+//     return { success: true, message: "Setor atualizado com sucesso!" };
+//   } catch (error) {
+//     console.error("Error trying to update the 'setor' table: ", error);
+//     // throw error;
+//   } finally {
+//     if (client) {
+//       await client.release();
+//     }
+//   }
+// }
+export async function putSetor(id, descricao) {
   const client = await connection();
   try {
-    // Primeiro, atualizamos o setor na tabela 'setor'
     const updateSetorQuery = `
-            UPDATE setor SET descricao = $2
-            WHERE id = $1`;
+      UPDATE setor
+      SET descricao = $1
+      WHERE id = $2`;
 
-    const updateSetorValues = [setor_id, descricao];
+    const updateSetorValues = [descricao, id];
     await client.query(updateSetorQuery, updateSetorValues);
 
-    // Agora, atualizamos o setor na tabela 'empresa_setor' com o novo setor
-    const updateEmpresaSetorQuery = `
-            UPDATE empresa_setor
-            SET id_setor = $2
-            WHERE id_empresa = $1`;
-
-    const updateEmpresaSetorValues = [empresa_id, setor_id];
-    await client.query(updateEmpresaSetorQuery, updateEmpresaSetorValues);
-
-    // Se tudo correu bem, retornamos uma mensagem de sucesso
     return { success: true, message: "Setor atualizado com sucesso!" };
   } catch (error) {
-    console.error("Error trying to update the 'setor' table: ", error);
-    // throw error;
+    console.error("Error in putSetor function: ", error);
+    throw error;
   } finally {
     if (client) {
-      await client.release();
+      client.release();
     }
   }
 }
