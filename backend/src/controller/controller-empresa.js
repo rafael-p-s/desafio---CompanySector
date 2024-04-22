@@ -45,7 +45,7 @@ export async function getEmpresa() {
     return result.rows;
   } catch (error) {
     console.error("Error to try read in the table empresa: ", error);
-    throw error;
+    // throw error;
   } finally {
     if (client) {
       client.release();
@@ -79,7 +79,7 @@ export async function putEmpresa(
     return { success: true, message: "Empresa atualizada com sucesso!" };
   } catch (error) {
     console.error("Error trying to update the 'empresa' table ", error);
-    throw error;
+    // throw error;
   } finally {
     if (client) {
       client.release();
@@ -108,7 +108,7 @@ export async function deleteEmpresa(empresa_id) {
     return { success: true, message: "Empresa excluída com sucesso!" };
   } catch (error) {
     console.error("Error trying to delete from the 'empresa' table: ", error);
-    throw error;
+    // throw error;
   } finally {
     if (client) {
       client.release();
