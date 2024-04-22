@@ -1,41 +1,35 @@
 import { fastify } from "fastify";
-//Config DB:
-import { connection } from "./config/database-config.js";
 //Create Tables:
 import { createTables } from "./database-config/createTables.js";
+//Controller:
+import { postEmpresa, getEmpresa } from "./controller/controller-empresa.js";
 
 const server = fastify();
 const lhport = 3333;
-// server.use(fastify.json());
 
 await createTables();
-//Server created
-server.get("/", (req, res) => {
-  return res.send({
-    evento: "Avaliação",
-    feito: "Rafael Prado",
-  });
+
+// server.get("/", (req, res) => {
+//   return res.send({
+//     evento: "Avaliação",
+//     feito: "Rafael Prado",
+//   });
+// });
+
+//API C
+server.post("/cadcompany", (req, res) => {
+  const result = postEmpresa();
+  res.send(result);
 });
+//API R
+server.get("/", (req, res) => {
+  const result = getEmpresa();
+  res.send(result);
+});
+//API U
 
-//C
-// server.post("/cadcompany", (req, res) => {
-//   return "create";
-// });
-// res.status(201).json(com);
+//API D
 
-//R
-// server.get("/read", () => {
-//   return "read";
-// });
-//U
-// server.put("/:id", (req, res) => {
-//   return "update.";
-// });
-
-//D
-// server.delete("/:id", (req, res) => {
-//   return "delete";
-// });
 
 server.listen(lhport, () => {
   console.log(`Backend running on port: ${lhport}`);
