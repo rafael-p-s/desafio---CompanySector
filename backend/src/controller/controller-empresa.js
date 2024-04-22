@@ -54,5 +54,64 @@ export async function getEmpresa() {
 }
 
 //U
+export async function putEmpresa(
+  empresa_id,
+  razao_social,
+  nome_fantasia,
+  cnpj,
+  setor_id
+) {
+  const client = await connection();
+  try {
+    //First update empresa:
+    const updateEmpresaQuery = `
+        UPDATE empresa SET razao_social = $2, nome_fantasia = $3, cnpj = $4
+        WHERE id = $1`;
+
+    const updateEmpresaValues = [empresa_id, razao_social, nome_fantasia, cnpj];
+    await client.query(updateEmpresaQuery, updateEmpresaValues);
+
+    //After update empresa_setor, with the new setor:
+    const updateEmpresaSetorQuery =
+      "UPDATE empresa_setor SET id_setor = $2 WHERE id_empresa = $1";
+
+    //if ok:
+    return { success: true, message: "Empresa atualizada com sucesso!" };
+  } catch (error) {
+    console.error("Error trying to update the 'empresa' table ", error);
+    throw error;
+  } finally {
+    if (client) {
+      client.release();
+    }
+  }
+}
 
 //D
+export async function deleteEmpresa(empresa_id) {
+  const client = await connection();
+  try {
+    //First delete the empresa from "empresa_setor"
+    const deleteEmpresaSetorQuery = `
+        DELETE FROM empresa_setor
+        WHERE id_empresa = $1;`;
+
+    await client.query(deleteEmpresaSetorQuery, [empresa_id]);
+
+    // Second delette empresa from table "empresa"
+    const deleteEmpresaQuery = `
+        DELETE FROM empresa
+        WHERE id = $1;`;
+
+    await client.query(deleteEmpresaQuery, [empresa_id]);
+
+    return { success: true, message: "Empresa excluída com sucesso!" };
+  } catch (error) {
+    console.error("Error trying to delete from the 'empresa' table: ", error);
+    throw error;
+  } finally {
+    if (client) {
+      client.release();
+    }
+  }
+}
