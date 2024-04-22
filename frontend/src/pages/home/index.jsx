@@ -3,6 +3,8 @@ import React from "react";
 import { NavBar } from "../../components/navbar";
 import { ButtonBtn } from "../../components/buttons/button";
 import { TableHome } from "../../components/table";
+
+
 export function Home() {
   return (
     <>

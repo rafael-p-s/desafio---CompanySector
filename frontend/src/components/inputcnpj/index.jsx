@@ -1,28 +1,42 @@
 import React, { useState } from "react";
+import "./index.css";
 
-export function MaskedCNPJInput({ label, onChange, value }) {
+export function CNPJinput({
+  label,
+  onChange,
+  value,
+  maxLength = 14,
+  placeholderText,
+}) {
   const [internalValue, setInternalValue] = useState(value || "");
 
-  const handleMaskChange = (event) => {
+  const handleInputChange = (event) => {
     const { value: inputValue } = event.target;
-    const formattedValue = inputValue.replace(/[^0-9]/g, ""); // Remove non-digit characters
-    const formattedParts = formattedValue.match(/(\d{3})(\d{3})(\d{3})(\d{2})/) || [];
-    const maskedValue = formattedParts.join(".").slice(0, 14); // Construct masked value
-    setInternalValue(maskedValue);
-    if (onChange) onChange(maskedValue); // Pass the formatted value to onChange
+
+    // Allow only digits and backspace key
+    const allowedChars = /^\d|\b$/;
+    if (!allowedChars.test(inputValue)) {
+      return; // Prevent invalid characters
+    }
+
+    // Limit input to maxLength
+    const trimmedValue = inputValue.slice(0, maxLength);
+    setInternalValue(trimmedValue);
+
+    if (onChange) onChange(trimmedValue); // Pass the formatted value to onChange
   };
 
   return (
-    <div className="cnpj-input">
-      <label>{label}</label>
+    <>
+      <label style={{ fontSize: "20px", margin: "10px" }}>{label}</label>
       <input
+        className="input_cnpj"
         type="text"
         value={internalValue}
-        onChange={handleMaskChange}
-        placeholder="XX.XXX.XXX/XXXX-XX"
-        maxLength={14}
-        pattern="[0-9]{14}"
+        onChange={handleInputChange}
+        placeholder={placeholderText}
+        maxLength={maxLength}
       />
-    </div>
+    </>
   );
 }
