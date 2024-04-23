@@ -1,4 +1,4 @@
-table {
+/* table {
   width: 100%;
   border-collapse: collapse;
 }
@@ -12,5 +12,29 @@ td {
 
 th {
   background-color: #f0f0f0;
+  text-align: center;
+} */
+/* Dentro do seu arquivo index.css ou em um arquivo de estilos separado */
+.table-container table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table-container th,
+.table-container td {
+  padding: 8px;
+  text-align: center;
+  border: 1px solid #ddd;
+}
+
+.table-container th {
+  background-color: #f2f2f2;
+}
+
+/* Estilos para centralizar somente os td nas colunas que você deseja */
+.table-container td:nth-child(1), /* Razão Social */
+.table-container td:nth-child(2), /* Nome Fantasia */
+.table-container td:nth-child(3), /* CNPJ */
+.table-container td:nth-child(4) { /* Setor */
   text-align: center;
 }

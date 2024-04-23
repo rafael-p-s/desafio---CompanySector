@@ -35,7 +35,7 @@ export async function postEmpresa(razao_social, nome_fantasia, cnpj, setor_id) {
     }
   }
 }
-// //R
+//R
 export async function getEmpresasComSetores() {
   const client = await connection();
   try {

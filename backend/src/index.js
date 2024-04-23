@@ -1,4 +1,5 @@
 import { fastify } from "fastify";
+import cors from "@fastify/cors";
 //Create Tables:
 import { createTables } from "./database-config/createTables.js";
 //Controller:
@@ -12,6 +13,7 @@ import {
 import { postSetor, putSetor } from "./controller/controller-setor.js";
 
 const server = fastify();
+await server.register(cors, {});
 const lhport = 3333;
 
 await createTables();
@@ -24,7 +26,6 @@ await createTables();
 // });
 
 //API C
-
 server.post("/cadcompany", async (req, res) => {
   try {
     const { razao_social, nome_fantasia, cnpj, setor_id } = req.body;
@@ -61,7 +62,7 @@ server.get("/", async (req, res) => {
   }
 });
 //API U
-server.put("/cadcompany/:id", async (req, res) => {
+server.put("/editarcompany/:id", async (req, res) => {
   try {
     const { id } = req.params;
     const { razao_social, nome_fantasia, cnpj } = req.body;
@@ -84,14 +85,14 @@ server.put("/cadsector/:id", async (req, res) => {
   }
 });
 //API D
-server.delete("/cadcompany/:id/setor/:setor_id", async (req, res) => {
+server.delete("/:id/setor/:id_setor", async (req, res) => {
   try {
-    const { id, setor_id } = req.params;
-    const result = await deleteEmpresaSetor(id, setor_id);
+    const { id, id_setor } = req.params;
+    const result = await deleteEmpresaSetor(id, id_setor);
     res.send(result);
   } catch (error) {
     console.error(
-      "Error in /cadcompany/:id/setor/:setor_id DELETE route: ",
+      "Error in /cadcompany/:id/setor/:id_setor DELETE route: ",
       error
     );
     res.status(500).send("Internal Server Error");
