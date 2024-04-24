@@ -1,0 +1,29 @@
+form {
+  display: block;
+  align-items: center;
+  justify-content: center;
+}
+.div_razao_fantasia,
+.div_cnpj_setor,
+.div_select,
+.div_buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 10vh;
+  margin-top: 1%;
+  margin-bottom: 1%;
+}
+.div_select {
+  margin-left: 2%;
+}
+.div_select label {
+  font-size: 24px;
+  margin-right: 5%;
+}
+.div_select select {
+  padding: 8px;
+  border-radius: 8px;
+  box-shadow: 4px;
+  width: 250px;
+}
