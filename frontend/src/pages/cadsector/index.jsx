@@ -4,7 +4,7 @@ import "./index.css";
 //Components:
 import { NavBar } from "../../components/navbar";
 import { ButtonBtn } from "../../components/buttons/button";
-import { InputGeral } from "../../components/input";
+import { InputGeral } from "../../components/inputGeral/";
 
 export function CadSector() {
   return (

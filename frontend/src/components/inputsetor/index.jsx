@@ -13,25 +13,21 @@ export function CadCompany() {
     setor_id: "",
   });
 
-  const [setor, setSetor] = useState([]);
-  const [setoresFetched, setSetoresFetched] = useState(false);
+  const [setores, setSetores] = useState([]);
 
-  const fetchSetor = async () => {
+  const fetchSetores = async () => {
     try {
       const response = await axios.get("http://localhost:3333/setor");
-      setSetor(response.data);
-      setSetoresFetched(true); // Marcamos como true para indicar que os setores foram buscados
+      console.log("Dados dos setores recebidos:", response.data);
+      setSetores(response.data);
     } catch (error) {
       console.error("Erro ao buscar setores: ", error);
     }
   };
 
   useEffect(() => {
-    // Verifica se os setores já foram buscados
-    if (!setoresFetched) {
-      fetchSetor();
-    }
-  }, [setoresFetched]); // Dependência alterada para setoresFetched
+    fetchSetores();
+  }, []);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -93,39 +89,31 @@ export function CadCompany() {
             maxLength="14"
           />
           <div>
-            <label htmlFor="setor">Setor:</label>
+            <label htmlFor="setor_id">Setor:</label>
             <select
-              id="setor"
+              id="setor_id"
               name="setor_id"
               value={formData.setor_id}
               onChange={handleSetorChange}
+              className="form-control"
               required
             >
-              <option value="">Selecione o Setor</option>
-              {setor.map((setorItem) => (
-                <option key={setorItem.id} value={setorItem.id}>
-                  {setorItem.descricao}
+              <option value="">-- Selecione o Setor --</option>
+              {setores.map((setor) => (
+                <option key={setor.id} value={setor.id}>
+                  {setor.descricao}
                 </option>
               ))}
             </select>
-            {/* {formData.setor_id ? (
-              <div>
-                Setor selecionado:{" "}
-                {
-                  setor.find(
-                    (setorItem) => setorItem.id === parseInt(formData.setor_id)
-                  ) ? (
-                    setor.find(
-                      (setorItem) => setorItem.id === parseInt(formData.setor_id)
-                    ).descricao
-                  ) : (
-                    "Setor não encontrado"
-                  )
-                }
-              </div>
-            ) : (
-              <div>Sem setor selecionado</div>
-            )} */}
+          </div>
+          <div>
+            <InputGeral
+              label="Buscar Setor:"
+              type="text"
+              value={searchDescricao}
+              onChange={handleSearchChange}
+              placeholderText="Buscar por descrição..."
+            />
           </div>
         </div>
 

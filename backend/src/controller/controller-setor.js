@@ -32,7 +32,27 @@ export async function postSetor(descricao, empresa_id) {
 }
 
 //R
+export async function getSetoresByDescricao(descricao) {
+  const client = await connection();
+  try {
+    const selectSetoresQuery = `
+      SELECT id, descricao FROM setor
+      WHERE descricao ILIKE $1
+      LIMIT 10;`;
 
+    const setoresResult = await client.query(selectSetoresQuery, [
+      `%${descricao}%`,
+    ]);
+    return setoresResult.rows;
+  } catch (error) {
+    console.error("Error trying to fetch setor by descricao: ", error);
+    throw error;
+  } finally {
+    if (client) {
+      client.release();
+    }
+  }
+}
 
 //U
 export async function putSetor(id, descricao) {

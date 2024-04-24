@@ -10,7 +10,13 @@ import {
   putEmpresa,
   deleteEmpresaSetor,
 } from "./controller/controller-empresa.js";
-import { postSetor, putSetor } from "./controller/controller-setor.js";
+import {
+  postSetor,
+  putSetor,
+  getSetoresByDescricao,
+} from "./controller/controller-setor.js";
+
+import { connection } from "./config/database-config.js";
 
 const server = fastify();
 await server.register(cors, {});
@@ -59,6 +65,27 @@ server.get("/", async (req, res) => {
   } catch (error) {
     console.error("Error where try to list in the home/table route: ", error);
     res.status(500).send("Internal Server Error");
+  }
+});
+//SETORES:
+// server.get("/setor", async (req, res) => {
+//   try {
+//     const result = await pool.query("SELECT * FROM setor");
+//     res.send(result.rows);
+//   } catch (err) {
+//     console.error("Erro ao buscar setor: ", err);
+//     res.status(500).send({ error: "Erro ao buscar setor." });
+//   }
+// });
+server.get("/setor", async (req, res) => {
+  const client = await connection();
+  try {
+    const result = await client.query("SELECT * FROM setor");
+    console.log("Setores encontrados:", result.rows); // Adicionando um log para verificar
+    res.send(result.rows);
+  } catch (error) {
+    console.error("Erro ao buscar setor:", error);
+    res.status(500).send({ error: "Erro ao buscar setor." });
   }
 });
 //API U
