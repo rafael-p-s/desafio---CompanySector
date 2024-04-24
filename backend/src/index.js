@@ -69,6 +69,18 @@ server.get("/", async (req, res) => {
     res.status(500).send("Internal Server Error");
   }
 });
+//EMPRESA
+server.get("/empresa", async (req, res) => {
+  const client = await connection();
+  try {
+    const result = await client.query("SELECT * FROM empresa");
+    // console.log("Setores encontrados:", result.rows); // Adicionando um log para verificar
+    res.send(result.rows);
+  } catch (error) {
+    console.error("Erro ao buscar empresa:", error);
+    res.status(500).send({ error: "Erro ao buscar empresa." });
+  }
+});
 //SETOR
 server.get("/setor", async (req, res) => {
   const client = await connection();

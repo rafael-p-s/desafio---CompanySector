@@ -4,9 +4,9 @@ form {
   justify-content: center;
 }
 
-.div_cad_setor,
+.div_cad_empresa,
 .div_buttons,
-.div_tabela_setor {
+.div_select {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -14,20 +14,16 @@ form {
   margin-top: 1%;
   margin-bottom: 1%;
 }
-
-.div_tabela_setor table {
-  width: 30%;
-  border-collapse: collapse;
+.div_select {
+  margin-left: 2%;
 }
-
-.div_tabela_setor th,
-td {
+.div_select label {
+  font-size: 24px;
+  margin-right: 5%;
+}
+.div_select select {
   padding: 8px;
-  text-align: left;
-  border: 1px solid #ddd;
-}
-
-.div_tabela_setor th {
-  background-color: #f0f0f0;
-  text-align: center;
+  border-radius: 8px;
+  box-shadow: 4px;
+  width: 250px;
 }

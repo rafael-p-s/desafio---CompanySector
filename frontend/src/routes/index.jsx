@@ -10,5 +10,6 @@ export const MainRoutes = () => (
     <Route path="/" element={<Home />} />
     <Route path="/cadcompany" element={<CadCompany />} />
     <Route path="/cadsector" element={<CadSector />} />
+    <Route path="/editcompany" element={<EditCompany />} />
   </Routes>
 );

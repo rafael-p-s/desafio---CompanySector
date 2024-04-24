@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
+//CSS
 import "./index.css";
+//Axios:
 import axios from "axios";
 import { NavBar } from "../../components/navbar";
 import { ButtonBtn } from "../../components/buttons/button";
