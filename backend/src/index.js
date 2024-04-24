@@ -35,6 +35,7 @@ await createTables();
 server.post("/cadcompany", async (req, res) => {
   try {
     const { razao_social, nome_fantasia, cnpj, setor_id } = req.body;
+    console.log("Received request body:", req.body);
     const result = await postEmpresa(
       razao_social,
       nome_fantasia,
@@ -47,6 +48,7 @@ server.post("/cadcompany", async (req, res) => {
     res.status(500).send("Internal Server Error");
   }
 });
+//SETOR
 server.post("/cadsector", async (req, res) => {
   try {
     const { descricao, empresa_id } = req.body;
@@ -67,21 +69,12 @@ server.get("/", async (req, res) => {
     res.status(500).send("Internal Server Error");
   }
 });
-//SETORES:
-// server.get("/setor", async (req, res) => {
-//   try {
-//     const result = await pool.query("SELECT * FROM setor");
-//     res.send(result.rows);
-//   } catch (err) {
-//     console.error("Erro ao buscar setor: ", err);
-//     res.status(500).send({ error: "Erro ao buscar setor." });
-//   }
-// });
+//SETOR
 server.get("/setor", async (req, res) => {
   const client = await connection();
   try {
     const result = await client.query("SELECT * FROM setor");
-    console.log("Setores encontrados:", result.rows); // Adicionando um log para verificar
+    // console.log("Setores encontrados:", result.rows); // Adicionando um log para verificar
     res.send(result.rows);
   } catch (error) {
     console.error("Erro ao buscar setor:", error);

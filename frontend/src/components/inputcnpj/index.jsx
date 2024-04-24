@@ -1,68 +1,37 @@
-import React, { useState } from "react";
-import "./index.css";
+import React from "react";
 
-export function CNPJinput({
+export function NumericInput({
   label,
-  onChange,
+  name,
   value,
-  maxLength = 18, // Alterado para o novo formato do CNPJ
+  onChange,
   placeholderText,
+  maxLength,
 }) {
-  const formatCNPJ = (cnpj) => {
-    if (!cnpj) return "";
-
-    // Limpar todos os caracteres não numéricos
-    const cleanedValue = cnpj.replace(/[^\d]/g, "");
-
-    // Adicionar zeros à esquerda se o CNPJ tiver menos de 14 dígitos
-    const paddedValue = cleanedValue.padStart(14, "0");
-
-    // Formatar o CNPJ
-    const formattedCNPJ =
-      paddedValue.substring(0, 2) +
-      "." +
-      paddedValue.substring(2, 5) +
-      "." +
-      paddedValue.substring(5, 8) +
-      "/" +
-      paddedValue.substring(8, 12) +
-      "-" +
-      paddedValue.substring(12, 14);
-
-    return formattedCNPJ;
-  };
-
-  const [internalValue, setInternalValue] = useState(formatCNPJ(value));
-
   const handleInputChange = (e) => {
-    const { value: inputValue } = e.target;
-
-    // Limpar todos os caracteres não numéricos
-    const cleanedValue = inputValue.replace(/[^\d]/g, "");
-
-    setInternalValue(cleanedValue);
-
-    // Chamar o onChange com o valor limpo
-    if (onChange) onChange(cleanedValue);
-  };
-
-  const handleBlur = () => {
-    // Ao perder o foco, formatar o CNPJ
-    setInternalValue(formatCNPJ(internalValue));
+    const inputValue = e.target.value;
+    // Remove tudo que não for número
+    const filteredValue = inputValue.replace(/\D/g, "");
+    // Limita o tamanho máximo
+    const truncatedValue = filteredValue.slice(0, maxLength);
+    // Chama a função de onChange com o valor tratado
+    onChange({ target: { name, value: truncatedValue } });
   };
 
   return (
-    <>
-      <label style={{ fontSize: "20px", margin: "10px" }}>{label}</label>
+    <div className="input_container">
+      <label className="input_label" htmlFor={name}>
+        {label}
+      </label>
       <input
-        className="input_cnpj"
+        className="input_field"
         type="text"
-        value={internalValue}
+        name={name}
+        value={value}
         onChange={handleInputChange}
-        onBlur={handleBlur} // Ao perder o foco, formatar o CNPJ
         placeholder={placeholderText}
         maxLength={maxLength}
       />
-    </>
+    </div>
   );
 }

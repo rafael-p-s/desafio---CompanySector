@@ -5,8 +5,8 @@ form {
 }
 .div_razao_fantasia,
 .div_cnpj_setor,
-.div_buttons,
-.div_tabela {
+.div_select,
+.div_buttons {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -14,20 +14,16 @@ form {
   margin-top: 1%;
   margin-bottom: 1%;
 }
-
-.div_tabela table {
-  width: 30%;
-  border-collapse: collapse;
+.div_select {
+  margin-left: 2%;
 }
-
-.div_tabela th,
-td {
+.div_select label {
+  font-size: 24px;
+  margin-right: 5%;
+}
+.div_select select {
   padding: 8px;
-  text-align: left;
-  border: 1px solid #ddd;
-}
-
-.div_tabela th {
-  background-color: #f0f0f0;
-  text-align: center;
+  border-radius: 8px;
+  box-shadow: 4px;
+  width: 250px;
 }

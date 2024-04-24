@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
+import "./index.css";
 import axios from "axios";
 import { NavBar } from "../../components/navbar";
 import { ButtonBtn } from "../../components/buttons/button";
 import { InputGeral } from "../../components/inputGeral/index";
-import { CNPJinput } from "../../components/inputcnpj";
+import { NumericInput } from "../../components/inputcnpj";
 
 export function CadCompany() {
   const [formData, setFormData] = useState({
@@ -20,7 +21,7 @@ export function CadCompany() {
     try {
       const response = await axios.get("http://localhost:3333/setor");
       setSetor(response.data);
-      setSetoresFetched(true); // Marcamos como true para indicar que os setores foram buscados
+      setSetoresFetched(true);
     } catch (error) {
       console.error("Erro ao buscar setores: ", error);
     }
@@ -31,19 +32,20 @@ export function CadCompany() {
     if (!setoresFetched) {
       fetchSetor();
     }
-  }, [setoresFetched]); // Dependência alterada para setoresFetched
+  }, [setoresFetched]);
 
-  const handleInputChange = (e) => {
-    console.log(e.target);
-    if (e.target) {
-      const { name, value } = e.target;
-      setFormData({
-        ...formData,
-        [name]: value,
-      });
-      return;
-    }
-  };
+  // const handleInputChange = (e) => {
+  //   // console.log(e.target);
+  //   if (e.target) {
+  //     const { name, value } = e.target;
+  //     console.log("CNPJ value:", value);
+  //     setFormData({
+  //       ...formData,
+  //       [name]: value,
+  //     });
+  //     return;
+  //   }
+  // };
 
   const handleSetorChange = (e) => {
     const { value } = e.target;
@@ -57,9 +59,17 @@ export function CadCompany() {
         "http://localhost:3333/cadcompany",
         formData
       );
-      console.log(response.data);
+      console.log("Response from backend:", response.data);
+      setFormData({
+        razao_social: "",
+        nome_fantasia: "",
+        cnpj: "",
+        setor_id: "",
+      });
+      alert("Empresa cadastrada com sucesso!");
     } catch (error) {
       console.error("Erro ao cadastrar empresa: ", error);
+      alert("Erro ao cadastrar empresa. Por favor, tente novamente.");
     }
   };
 
@@ -70,34 +80,50 @@ export function CadCompany() {
         <div className="div_razao_fantasia">
           <InputGeral
             label="Razão Social:"
-            type="text"
+            type="var"
             name="razao_social"
             value={formData.razao_social}
-            onChange={handleInputChange}
             placeholderText="Digite a Razão Social..."
+            onChange={(e) =>
+              setFormData({ ...formData, razao_social: e.target.value })
+            }
           />
           <InputGeral
             label="Nome Fantasia:"
             type="text"
             name="nome_fantasia"
             value={formData.nome_fantasia}
-            onChange={handleInputChange}
             placeholderText="Digite o nome Fantasia..."
+            onChange={(e) =>
+              setFormData({ ...formData, nome_fantasia: e.target.value })
+            }
           />
         </div>
 
         <div className="div_cnpj_setor">
-          <CNPJinput
+          {/* <CNPJinput
             label="CNPJ:"
-            name="cnpj"
             type="text"
+            name="cnpj"
             value={formData.cnpj}
             onChange={handleInputChange}
             placeholderText="Digite o CNPJ..."
             maxLength="14"
+          /> */}
+          <NumericInput
+            label="CNPJ:"
+            type="text"
+            name="cnpj"
+            value={formData.cnpj}
+            onChange={(e) => setFormData({ ...formData, cnpj: e.target.value })}
+            placeholderText="Digite o CNPJ..."
+            maxLength={14} // Limite de 14 dígitos
           />
-          <div>
-            <label htmlFor="setor">Setor:</label>
+
+          <div className="div_select">
+            <label className="select_label" htmlFor="setor">
+              Setor:
+            </label>
             <select
               id="setor"
               name="setor_id"
@@ -112,24 +138,6 @@ export function CadCompany() {
                 </option>
               ))}
             </select>
-            {/* {formData.setor_id ? (
-              <div>
-                Setor selecionado:{" "}
-                {
-                  setor.find(
-                    (setorItem) => setorItem.id === parseInt(formData.setor_id)
-                  ) ? (
-                    setor.find(
-                      (setorItem) => setorItem.id === parseInt(formData.setor_id)
-                    ).descricao
-                  ) : (
-                    "Setor não encontrado"
-                  )
-                }
-              </div>
-            ) : (
-              <div>Sem setor selecionado</div>
-            )} */}
           </div>
         </div>
 
@@ -151,7 +159,7 @@ export function CadCompany() {
           >
             Cancelar
           </ButtonBtn>
-          <ButtonBtn
+          <button
             style={{
               backgroundColor: "#2FD467",
               color: "#FFFFFF",
@@ -167,7 +175,7 @@ export function CadCompany() {
             type="submit"
           >
             Salvar
-          </ButtonBtn>
+          </button>
         </div>
       </form>
     </>

@@ -5,6 +5,13 @@ import { connection } from "../config/database-config.js";
 export async function postEmpresa(razao_social, nome_fantasia, cnpj, setor_id) {
   const client = await connection();
   try {
+    console.log("Creating company with data:", {
+      razao_social,
+      nome_fantasia,
+      cnpj,
+      setor_id,
+    });
+    
     const insertEmpresaQuery = `
         INSERT INTO empresa (razao_social, nome_fantasia, cnpj)
         VALUES ($1, $2, $3)
@@ -24,6 +31,8 @@ export async function postEmpresa(razao_social, nome_fantasia, cnpj, setor_id) {
 
     const insertEmpresaSetorValues = [empresa_id, setor_id];
     await client.query(insertEmpresaSetorQuery, insertEmpresaSetorValues);
+
+    console.log("Company created successfully.");
 
     return { success: true, message: "Empresa cadastrada com sucesso!" };
   } catch (error) {
