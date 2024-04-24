@@ -34,11 +34,15 @@ export function CadCompany() {
   }, [setoresFetched]); // Dependência alterada para setoresFetched
 
   const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
+    console.log(e.target);
+    if (e.target) {
+      const { name, value } = e.target;
+      setFormData({
+        ...formData,
+        [name]: value,
+      });
+      return;
+    }
   };
 
   const handleSetorChange = (e) => {
