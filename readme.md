@@ -16,12 +16,7 @@ Link do Figma: [Link](https://www.figma.com/file/zKLQmYvtNVBoObn5OTUUxd/Untitled
 Para executar o projeto:
 
 1° - Na pasta raiz do projeto, execute o comando: `docker-compose up -d` para iniciar a imagem do PostgreSQL. OBS: Certifique-se de ter o Docker instalado.
-<<<<<<< HEAD
-2° - Acesse a pasta "backend" via terminal, necessário node instalado, digite `npm install`, e depois `npm run dev` startar o projeto.
-3° - Acesse a pasta "frontend" via terminal, necessário node instalado, então `npm install`, e depois `npm run dev` para startar o projeto.
-=======
 
 2° - Acesse a pasta "backend" via terminal, necessário ter o Node.js instalado, digite `npm install`, e depois `npm run dev` para iniciar o projeto.
 
 3° - Acesse a pasta "frontend" via terminal, necessário ter o Node.js instalado, então `npm install`, e depois `npm run dev` para iniciar o projeto.
->>>>>>> a22eb3dffa8789080bef7547066a91c3e90cc092
