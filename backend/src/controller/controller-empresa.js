@@ -67,7 +67,29 @@ export async function getEmpresasComSetores() {
     }
   }
 }
+export async function getEmpresasSetoresID(empresaID) {
+  const client = await connection();
+  try {
+    const query = `
+      SELECT empresa.id AS empresa_id, empresa.razao_social, empresa.nome_fantasia, empresa.cnpj,
+             setor.id AS setor_id, setor.descricao
+      FROM empresa
+      INNER JOIN empresa_setor ON empresa.id = empresa_setor.id_empresa
+      INNER JOIN setor ON empresa_setor.id_setor = setor.id
+      WHERE empresa.id = $1
+      ORDER BY empresa.id, setor.id;`;
 
+    const result = await client.query(query, [empresaID]);
+    return result.rows;
+  } catch (error) {
+    console.error("Error trying to list empresas with setores by ID: ", error);
+    throw error;
+  } finally {
+    if (client) {
+      client.release();
+    }
+  }
+}
 //U
 export async function putEmpresa(id, razao_social, nome_fantasia, cnpj) {
   const client = await connection();

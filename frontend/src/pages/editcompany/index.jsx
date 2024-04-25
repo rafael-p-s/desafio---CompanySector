@@ -36,19 +36,6 @@ export function EditCompany() {
     }
   }, [setoresFetched]);
 
-  // const handleInputChange = (e) => {
-  //   // console.log(e.target);
-  //   if (e.target) {
-  //     const { name, value } = e.target;
-  //     console.log("CNPJ value:", value);
-  //     setFormData({
-  //       ...formData,
-  //       [name]: value,
-  //     });
-  //     return;
-  //   }
-  // };
-
   const handleSetorChange = (e) => {
     const { value } = e.target;
     setFormData({ ...formData, setor_id: value });
@@ -77,7 +64,7 @@ export function EditCompany() {
 
   return (
     <>
-      <NavBar>Cadastro Empresa</NavBar>
+      <NavBar>Editar Empresa</NavBar>
       <form onSubmit={handleSubmit}>
         <div className="div_razao_fantasia">
           <InputGeral
@@ -103,15 +90,6 @@ export function EditCompany() {
         </div>
 
         <div className="div_cnpj_setor">
-          {/* <CNPJinput
-            label="CNPJ:"
-            type="text"
-            name="cnpj"
-            value={formData.cnpj}
-            onChange={handleInputChange}
-            placeholderText="Digite o CNPJ..."
-            maxLength="14"
-          /> */}
           <NumericInput
             label="CNPJ:"
             type="text"

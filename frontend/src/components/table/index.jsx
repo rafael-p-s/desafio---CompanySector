@@ -5,6 +5,7 @@ import "./index.css";
 import { ButtonBtn } from "../buttons/button";
 //Axios:
 import axios from "axios";
+import { NavLink } from "react-router-dom";
 
 export function TableHome() {
   const [data, setData] = useState([]);
@@ -82,9 +83,11 @@ export function TableHome() {
                   )}
                 </td>
                 <td>
-                  <button onClick={() => handleEdit(empresa.empresa_id)}>
-                    Editar
-                  </button>
+                  <NavLink to={`/editcompany/${empresa.empresa_id}`}>
+                    <button onClick={() => handleEdit(empresa.empresa_id)}>
+                      Editar
+                    </button>
+                  </NavLink>
                 </td>
                 <td>
                   <button

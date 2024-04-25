@@ -9,6 +9,7 @@ import {
   getEmpresasComSetores,
   putEmpresa,
   deleteEmpresaSetor,
+  getEmpresasSetoresID,
 } from "./controller/controller-empresa.js";
 import {
   postSetor,
@@ -66,6 +67,17 @@ server.get("/", async (req, res) => {
     res.send(empresasComSetores);
   } catch (error) {
     console.error("Error where try to list in the home/table route: ", error);
+    res.status(500).send("Internal Server Error");
+  }
+});
+//Button edit:
+server.get("/editcompany/:id", async (req, res) => {
+  try {
+    const empresaID = req.params.id; // Obtenha o ID da empresa dos parâmetros da solicitação
+    const empresaSetor = await getEmpresasSetoresID(empresaID); // Use a função correta para buscar empresa com setores por ID
+    res.send(empresaSetor);
+  } catch (error) {
+    console.error("Error ao tentar listar empresa_setor: ", error);
     res.status(500).send("Internal Server Error");
   }
 });
