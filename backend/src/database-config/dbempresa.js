@@ -3,7 +3,6 @@ import { connection } from "../config/database-config.js";
 export async function createTableEmpresa() {
   const client = await connection();
   try {
-    // Criar tabela empresa
     await client.query(`
       CREATE TABLE IF NOT EXISTS empresa (
         id SERIAL4 NOT NULL PRIMARY KEY,

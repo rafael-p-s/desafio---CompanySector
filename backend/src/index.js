@@ -2,7 +2,6 @@ import { fastify } from "fastify";
 import cors from "@fastify/cors";
 //Create Tables:
 import { createTables } from "./database-config/createTables.js";
-//Controller:
 //Empresa:
 import {
   postEmpresa,
@@ -14,7 +13,6 @@ import {
 import {
   postSetor,
   putSetor,
-  getSetoresByDescricao,
 } from "./controller/controller-setor.js";
 
 import { connection } from "./config/database-config.js";
@@ -24,13 +22,6 @@ await server.register(cors, {});
 const lhport = 3333;
 
 await createTables();
-
-// server.get("/", (req, res) => {
-//   return res.send({
-//     evento: "Avaliação",
-//     feito: "Rafael Prado",
-//   });
-// });
 
 //API C
 server.post("/cadcompany", async (req, res) => {
@@ -73,8 +64,8 @@ server.get("/", async (req, res) => {
 //Button edit:
 server.get("/editcompany/:id", async (req, res) => {
   try {
-    const empresaID = req.params.id; // Obtenha o ID da empresa dos parâmetros da solicitação
-    const empresaSetor = await getEmpresasSetoresID(empresaID); // Use a função correta para buscar empresa com setores por ID
+    const empresaID = req.params.id; 
+    const empresaSetor = await getEmpresasSetoresID(empresaID); 
     res.send(empresaSetor);
   } catch (error) {
     console.error("Error ao tentar listar empresa_setor: ", error);
@@ -86,7 +77,6 @@ server.get("/empresa", async (req, res) => {
   const client = await connection();
   try {
     const result = await client.query("SELECT * FROM empresa");
-    // console.log("Setores encontrados:", result.rows); // Adicionando um log para verificar
     res.send(result.rows);
   } catch (error) {
     console.error("Erro ao buscar empresa:", error);
@@ -98,7 +88,6 @@ server.get("/setor", async (req, res) => {
   const client = await connection();
   try {
     const result = await client.query("SELECT * FROM setor");
-    // console.log("Setores encontrados:", result.rows); // Adicionando um log para verificar
     res.send(result.rows);
   } catch (error) {
     console.error("Erro ao buscar setor:", error);

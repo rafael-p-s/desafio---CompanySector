@@ -18,7 +18,6 @@ export function CadCompany() {
   const fetchSetores = async () => {
     try {
       const response = await axios.get("http://localhost:3333/setor");
-      // console.log("Dados dos setores recebidos:", response.data);
       setSetores(response.data);
     } catch (error) {
       console.error("Erro ao buscar setores: ", error);

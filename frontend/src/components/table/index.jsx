@@ -14,15 +14,6 @@ export function TableHome() {
     fetchData();
   }, []);
 
-  // const fetchData = async () => {
-  //   try {
-  //     const response = await axios.get("http://localhost:3333/");
-  //     setData(response.data);
-  //   } catch (error) {
-  //     console.error("Erro ao buscar dados da tabela: ", error);
-  //   }
-  // };
-
   const fetchData = async () => {
     try {
       const response = await axios.get("http://localhost:3333/");
