@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 //CSS
 import "./index.css";
 //Axios:
@@ -9,63 +10,74 @@ import { InputGeral } from "../../components/inputGeral/index";
 import { NumericInput } from "../../components/inputcnpj";
 
 export function EditCompany() {
-  const [formData, setFormData] = useState({
-    razao_social: "",
-    nome_fantasia: "",
-    cnpj: "",
-    setor_id: "",
-  });
+  const { id } = useParams(); //tem q ser = ao id de "/editcompany/:id"
+  // console.log(id);
 
-  const [setor, setSetor] = useState([]);
-  const [setoresFetched, setSetoresFetched] = useState(false);
-
-  const fetchSetor = async () => {
-    try {
-      const response = await axios.get("http://localhost:3333/setor");
-      setSetor(response.data);
-      setSetoresFetched(true);
-    } catch (error) {
-      console.error("Erro ao buscar setores: ", error);
-    }
-  };
-
+  function handleUpdatePost() {
+    axios.put(`/editcompany/${id}`);
+  }
   useEffect(() => {
-    // Verifica se os setores já foram buscados
-    if (!setoresFetched) {
-      fetchSetor();
-    }
-  }, [setoresFetched]);
+    axios
+      .get(`/editcompany/${id}`)
+      .then((response) => console.log(response.data));
+  }, []);
+  // const [formData, setFormData] = useState({
+  //   razao_social: "",
+  //   nome_fantasia: "",
+  //   cnpj: "",
+  //   setor_id: "",
+  // });
 
-  const handleSetorChange = (e) => {
-    const { value } = e.target;
-    setFormData({ ...formData, setor_id: value });
-  };
+  // const [setor, setSetor] = useState([]);
+  // const [setoresFetched, setSetoresFetched] = useState(false);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const response = await axios.post(
-        "http://localhost:3333/cadcompany",
-        formData
-      );
-      console.log("Response from backend:", response.data);
-      setFormData({
-        razao_social: "",
-        nome_fantasia: "",
-        cnpj: "",
-        setor_id: "",
-      });
-      alert("Empresa cadastrada com sucesso!");
-    } catch (error) {
-      console.error("Erro ao cadastrar empresa: ", error);
-      alert("Erro ao cadastrar empresa. Por favor, tente novamente.");
-    }
-  };
+  // const fetchSetor = async () => {
+  //   try {
+  //     const response = await axios.get("http://localhost:3333/setor");
+  //     setSetor(response.data);
+  //     setSetoresFetched(true);
+  //   } catch (error) {
+  //     console.error("Erro ao buscar setores: ", error);
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   // Verifica se os setores já foram buscados
+  //   if (!setoresFetched) {
+  //     fetchSetor();
+  //   }
+  // }, [setoresFetched]);
+
+  // const handleSetorChange = (e) => {
+  //   const { value } = e.target;
+  //   setFormData({ ...formData, setor_id: value });
+  // };
+
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   try {
+  //     const response = await axios.post(
+  //       "http://localhost:3333/cadcompany",
+  //       formData
+  //     );
+  //     console.log("Response from backend:", response.data);
+  //     setFormData({
+  //       razao_social: "",
+  //       nome_fantasia: "",
+  //       cnpj: "",
+  //       setor_id: "",
+  //     });
+  //     alert("Empresa cadastrada com sucesso!");
+  //   } catch (error) {
+  //     console.error("Erro ao cadastrar empresa: ", error);
+  //     alert("Erro ao cadastrar empresa. Por favor, tente novamente.");
+  //   }
+  // };
 
   return (
     <>
       <NavBar>Editar Empresa</NavBar>
-      <form onSubmit={handleSubmit}>
+      {/* <form onSubmit={handleSubmit}>
         <div className="div_razao_fantasia">
           <InputGeral
             label="Razão Social:"
@@ -157,7 +169,7 @@ export function EditCompany() {
             Salvar
           </button>
         </div>
-      </form>
+      </form> */}
     </>
   );
 }
