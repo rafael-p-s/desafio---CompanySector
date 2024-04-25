@@ -13,8 +13,6 @@ Docker.
 
 Link do Figma: `https://www.figma.com/file/zKLQmYvtNVBoObn5OTUUxd/Untitled?type=design&node-id=0%3A1&mode=design&t=KCqkdBW7fDGgeI36-1`
 
-No documento Docker, "docker-compose.yml", contém as configurações para criar o banco de dados utilizando o PostgreSQL.
-
 Para executar o projeto:
 
 1° - Na pasta raiz do projeto, execute o comando: `docker-compose up -d` para iniciar a imagem do PostgreSQL. OBS: Certifique-se de ter o Docker instalado.
