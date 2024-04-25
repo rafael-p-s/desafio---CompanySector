@@ -21,83 +21,23 @@ export function EditCompany() {
       .get(`/editcompany/${id}`)
       .then((response) => console.log(response.data));
   }, []);
-  // const [formData, setFormData] = useState({
-  //   razao_social: "",
-  //   nome_fantasia: "",
-  //   cnpj: "",
-  //   setor_id: "",
-  // });
-
-  // const [setor, setSetor] = useState([]);
-  // const [setoresFetched, setSetoresFetched] = useState(false);
-
-  // const fetchSetor = async () => {
-  //   try {
-  //     const response = await axios.get("http://localhost:3333/setor");
-  //     setSetor(response.data);
-  //     setSetoresFetched(true);
-  //   } catch (error) {
-  //     console.error("Erro ao buscar setores: ", error);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   // Verifica se os setores já foram buscados
-  //   if (!setoresFetched) {
-  //     fetchSetor();
-  //   }
-  // }, [setoresFetched]);
-
-  // const handleSetorChange = (e) => {
-  //   const { value } = e.target;
-  //   setFormData({ ...formData, setor_id: value });
-  // };
-
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-  //   try {
-  //     const response = await axios.post(
-  //       "http://localhost:3333/cadcompany",
-  //       formData
-  //     );
-  //     console.log("Response from backend:", response.data);
-  //     setFormData({
-  //       razao_social: "",
-  //       nome_fantasia: "",
-  //       cnpj: "",
-  //       setor_id: "",
-  //     });
-  //     alert("Empresa cadastrada com sucesso!");
-  //   } catch (error) {
-  //     console.error("Erro ao cadastrar empresa: ", error);
-  //     alert("Erro ao cadastrar empresa. Por favor, tente novamente.");
-  //   }
-  // };
 
   return (
     <>
       <NavBar>Editar Empresa</NavBar>
-      {/* <form onSubmit={handleSubmit}>
+      <form>
         <div className="div_razao_fantasia">
           <InputGeral
             label="Razão Social:"
             type="var"
             name="razao_social"
-            value={formData.razao_social}
             placeholderText="Digite a Razão Social..."
-            onChange={(e) =>
-              setFormData({ ...formData, razao_social: e.target.value })
-            }
           />
           <InputGeral
             label="Nome Fantasia:"
             type="text"
             name="nome_fantasia"
-            value={formData.nome_fantasia}
             placeholderText="Digite o nome Fantasia..."
-            onChange={(e) =>
-              setFormData({ ...formData, nome_fantasia: e.target.value })
-            }
           />
         </div>
 
@@ -106,8 +46,6 @@ export function EditCompany() {
             label="CNPJ:"
             type="text"
             name="cnpj"
-            value={formData.cnpj}
-            onChange={(e) => setFormData({ ...formData, cnpj: e.target.value })}
             placeholderText="Digite o CNPJ..."
             maxLength={14} // Limite de 14 dígitos
           />
@@ -116,19 +54,8 @@ export function EditCompany() {
             <label className="select_label" htmlFor="setor">
               Setor:
             </label>
-            <select
-              id="setor"
-              name="setor_id"
-              value={formData.setor_id}
-              onChange={handleSetorChange}
-              required
-            >
+            <select id="setor" name="setor_id" required>
               <option value="">Selecione o Setor</option>
-              {setor.map((setorItem) => (
-                <option key={setorItem.id} value={setorItem.id}>
-                  {setorItem.descricao}
-                </option>
-              ))}
             </select>
           </div>
         </div>
@@ -169,7 +96,7 @@ export function EditCompany() {
             Salvar
           </button>
         </div>
-      </form> */}
+      </form>
     </>
   );
 }
